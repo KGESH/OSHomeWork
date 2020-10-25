@@ -1,4 +1,6 @@
 #include "firstfit.h"
+#include <cstring>
+
 
 
 
@@ -28,13 +30,16 @@ void FirstFitPolicy::FirstFit(){
     int i;
     std::list<Block_t>::iterator block_itor;
     std::list<Process_t>::iterator process_itor;
+    std::stringstream string_stream;
 
     for (process_itor = process_list_.begin(); process_itor != process_list_.end(); process_itor++){
         for (block_itor = block_list_.begin(), i=0; block_itor != block_list_.end(); block_itor++, compare_count_++, i++){
 
             if (*process_itor <= *block_itor){
                 allocated_block_list_.push_back(*process_itor);
-                block_number_.push_back(std::to_string(i));
+                string_stream.str("");                          // clear string stream
+                string_stream << i;                             // int to string
+                block_number_.push_back(string_stream.str());   // not C++ 11 compiler :(    std::to_stirng()
                 *block_itor -= *process_itor;
                 break;
             }
