@@ -1,9 +1,9 @@
 CC = g++
 CFLAGS = -W -Wall
 TARGET = main
-OBJS = main.o makeinputfile.o firstfit.o bestfit.o
+OBJS = main.o makeinputfile.o firstfit.o bestfit.o nextfit.o
 
-$(TARGET): main.o makeinputfile.o firstfit.o bestfit.o
+$(TARGET): $(OBJS)
 	$(CC) $(CFLAGS) -g -o $(TARGET) $(OBJS)
 	rm *.o
 
@@ -15,6 +15,9 @@ firstfit.o : firstfit.cpp
 
 bestfit.o : bestfit.cpp
 	$(CC) $(CFLAGS) -g -c -o bestfit.o bestfit.cpp
+
+nextfit.o : nextfit.cpp
+	$(CC) $(CFLAGS) -g -c -o nextfit.o nextfit.cpp
 
 main.o : main.cpp
 	$(CC) $(CFLAGS) -g -c -o main.o main.cpp
