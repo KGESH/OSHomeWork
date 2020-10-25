@@ -4,6 +4,7 @@
 #include <fstream>
 #include <list>
 #include <string>
+#include <sstream>
 
 
 typedef int Block_t;

@@ -15,7 +15,6 @@ class FirstFitPolicy{
         std::list<Process_t> process_list_;
         std::list<std::string> block_number_;
         int compare_count_;
-
 };
 
 #endif
