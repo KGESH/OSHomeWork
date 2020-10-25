@@ -1,5 +1,5 @@
 #include "nextfit.h"
-
+#include "circulariterator.h"
 
 
 void NextFitPolicy::InitList(const std::string& file_name){
@@ -28,16 +28,19 @@ void NextFitPolicy::NextFit(){
     int i;
     std::list<Block_t>::iterator block_itor;
     std::list<Process_t>::iterator process_itor;
+    CircularIterator<std::list<Block_t>::iterator> circular_iterator(block_list_.begin(), block_list_.end());
     std::stringstream string_stream;
 
+
     for (process_itor = process_list_.begin(); process_itor != process_list_.end(); process_itor++){
-        for (block_itor = block_list_.begin(), i=0; block_itor != block_list_.end(); block_itor++, compare_count_++, i++){
+        for (block_itor = circular_iterator.Current(), i=0; block_itor != block_list_.end(); block_itor++, compare_count_++, i++){
 
             if (*process_itor <= *block_itor){
                 allocated_block_list_.push_back(*process_itor);
                 string_stream << i;                             // int to string
                 block_number_.push_back(string_stream.str());   // not C++ 11 compiler :(
                 *block_itor -= *process_itor;
+                circular_iterator++;                            // if current over end, then current = begin
                 break;
             }
         }
@@ -47,7 +50,7 @@ void NextFitPolicy::NextFit(){
                 block_number_.push_back("Not Allocated");
         }
     }
-}
+} 
 
 void NextFitPolicy::ShowMemory(){
     int i = 1;
