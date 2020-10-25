@@ -28,20 +28,20 @@ void NextFitPolicy::NextFit(){
     std::list<Block_t>::iterator block_itor;
     std::list<Process_t>::iterator process_itor;
     CircularIterator<std::list<Block_t>::iterator> circular_iterator(block_list_.begin(), block_list_.end(), block_list_.begin());  // begin, end, current
+    std::list<Block_t>::iterator allocate_ptr = block_list_.begin();
     std::stringstream string_stream;
 
 
     for (process_itor = process_list_.begin(); process_itor != process_list_.end(); process_itor++){
-        std::cout << "pfor" << std::endl;
-        for (block_itor = circular_iterator.Current(); block_itor != circular_iterator.Prev(); block_itor = ++circular_iterator, compare_count_++){  // if current over end, then current = begin
-            std::cout << "bfor" << std::endl;
-            if (*process_itor <= *block_itor){
+        for (circular_iterator.Current() = allocate_ptr;circular_iterator.Next() != allocate_ptr; circular_iterator++, compare_count_++){  // if current over end, then current = begin
+
+            if (*process_itor <= *circular_iterator.Current()){
                 allocated_block_list_.push_back(*process_itor);
                 string_stream.str("");                                          // clear string stream
                 string_stream << circular_iterator.GetCurrentPosition();        // int to string
                 block_number_.push_back(string_stream.str());                   // not C++ 11 compiler :(
-                *block_itor -= *process_itor;
-                circular_iterator++;                                            
+                *circular_iterator.Current() -= *process_itor;
+                allocate_ptr = circular_iterator.Current();                     
                 break;
             }
         }

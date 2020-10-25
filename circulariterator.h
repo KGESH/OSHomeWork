@@ -12,7 +12,7 @@ class CircularIterator{
         BaseIterator& Current() { return current_; }
         BaseIterator& Begin() { return begin_; }
         BaseIterator& End() { return end_; }
-        BaseIterator& Next() { ++next_; if (next_ == end_) { next_ = begin_;} return next_; }
+        BaseIterator& Next() { if (next_ == end_) { next_ = begin_;return next_; } else { ++next_; return next_;} }
         BaseIterator& Prev() { if (prev_ == begin_) { prev_ = end_; return prev_; } BaseIterator current = current_; prev_ = --current; return prev_;}
         int GetCurrentPosition() { int pos = 0; for(BaseIterator current = current_; current != end_; current++, pos++) {} return kMaxBlockSize - pos;}
 
