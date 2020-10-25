@@ -6,7 +6,7 @@
 #include <string>
 #include <sstream>
 
-
 typedef int Block_t;
 typedef int Process_t;
+
 #endif

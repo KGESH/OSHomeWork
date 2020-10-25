@@ -1,7 +1,4 @@
 #include "firstfit.h"
-#include <cstring>
-
-
 
 
 void FirstFitPolicy::InitList(const std::string& file_name){
@@ -9,22 +6,23 @@ void FirstFitPolicy::InitList(const std::string& file_name){
     int temp;
     std::fstream input_stream(file_name.c_str(), std::ios::in);     // not C++ 11 compiler :(
 
-    if(!input_stream){
+    if (!input_stream){
         std::cout << "File Open Failed" << std::endl;
     }
 
     input_stream >> max_count;
-    for(int i=0; i<max_count; i++){
+    for (int i = 0; i<max_count; i++){
         input_stream >> temp;
         block_list_.push_back(temp);
     }
 
     input_stream >> max_count;
-    for(int i=0; i<max_count; i++){
+    for (int i = 0; i<max_count; i++){
         input_stream >> temp;
         process_list_.push_back(temp);
     }
 }
+
 
 void FirstFitPolicy::FirstFit(){
     int i;
@@ -46,11 +44,11 @@ void FirstFitPolicy::FirstFit(){
         }
 
         if (allocated_block_list_.empty() || (*process_itor != allocated_block_list_.back())){
-            
-                block_number_.push_back("Not Allocated");
+            block_number_.push_back("Not Allocated");
         }
     }
 }
+
 
 void FirstFitPolicy::ShowMemory(){
     int i = 1;
@@ -79,5 +77,4 @@ void FirstFitPolicy::ShowMemory(){
 
     std::cout << "compare count = " << compare_count_ << std::endl;
     std::cout << "average comapre count = " << compare_count_ / process_list_.size() << std::endl << std::endl;
-
 }

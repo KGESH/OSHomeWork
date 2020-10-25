@@ -18,7 +18,6 @@ void InputFile::MakeInputFile(){
         block_size = ((rand() % 10) + 1) * 100;       //  100, 200, ... 1000
         output_stream << block_size << " ";
     }
-
     output_stream << std::endl;
 
     output_stream << kProcessCount << " ";

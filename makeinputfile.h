@@ -12,11 +12,7 @@ class InputFile{
         static void MakeInputFile();
         static const std::string file_name_;
 
-    private:
-
-        
+    private:       
 };
-
- 
 
 #endif

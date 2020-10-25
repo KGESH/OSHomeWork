@@ -2,7 +2,6 @@
 #include "firstfit.h"
 #include "bestfit.h"
 #include "nextfit.h"
-#include <iostream>
 
 int main(){
     srand(time(NULL));

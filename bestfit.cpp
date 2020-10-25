@@ -1,28 +1,28 @@
 #include "bestfit.h"
 
 
-
 void BestFitPolicy::InitList(const std::string& file_name){
     int max_count;
     int temp;
     std::fstream input_stream(file_name.c_str(), std::ios::in);     // not C++ 11 compiler :(
 
-    if(!input_stream){
+    if (!input_stream){
         std::cout << "File Open Failed" << std::endl;
     }
 
     input_stream >> max_count;
-    for(int i=0; i<max_count; i++){
+    for (int i=0; i<max_count; i++){
         input_stream >> temp;
         block_list_.push_back(temp);
     }
 
     input_stream >> max_count;
-    for(int i=0; i<max_count; i++){
+    for (int i=0; i<max_count; i++){
         input_stream >> temp;
         process_list_.push_back(temp);
     }
 }
+
 
 void BestFitPolicy::BestFit(){
     const int kNotAllocated = -1;
@@ -38,6 +38,7 @@ void BestFitPolicy::BestFit(){
 
             if (*block_itor - *process_itor > 0 && *process_itor <= *block_itor){
                 compare_count_++;   // compare count to best fit
+
                 if (*block_itor - *process_itor < min_available_size){
                     min_available_size = *block_itor - *process_itor;   //  block size - process size
                     min_available_block_position = i;
@@ -45,7 +46,7 @@ void BestFitPolicy::BestFit(){
             }
         }
 
-        for(i=0, block_itor = block_list_.begin(); i<min_available_block_position; i++){   // if not allocated then not work
+        for (i=0, block_itor = block_list_.begin(); i<min_available_block_position; i++){   // if not allocated then not work
             block_itor++;
         }
 
@@ -89,5 +90,4 @@ void BestFitPolicy::ShowMemory(){
 
     std::cout << "compare count = " << compare_count_ << std::endl;
     std::cout << "average comapre count = " << compare_count_ / process_list_.size() << std::endl << std::endl;
-
 }
